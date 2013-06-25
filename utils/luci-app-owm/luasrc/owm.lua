@@ -430,6 +430,10 @@ function get()
 			else
 				t = {}
 			end
+			
+			if not t then
+				break
+			end
 	
 			for ip,mac in pairs(t) do
 				if not mac then
