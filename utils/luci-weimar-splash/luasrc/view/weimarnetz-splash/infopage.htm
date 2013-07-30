@@ -1,0 +1,178 @@
+<%
+local formRules = luci.http.formvalue("FORM_RULES")
+local formShowRules = luci.http.formvalue("FORM_SHOW_RULES")
+local requestMethod = luci.http.getenv("REQUEST_METHOD")
+local remoteAddr = luci.http.getenv("REMOTE_ADDR")
+local gwInfo = luci.util.split(luci.sys.exec("cat /tmp/GATEWAY_CHECK_RECENT"), ";")
+local gateway = luci.util.split(gwInfo[4], "=")
+local gatewayNode = luci.sys.exec(". /tmp/loader && _ipsystem ffweimar " .. gateway[2])
+require("luci.model.uci")
+local uci = luci.model.uci.cursor_state()
+local nodeNumber = uci:get_first("system", "profile", "nodenumber")
+local nodeIp = uci:get_first("olsrd", "olsrd", "MainIp")
+local startError
+if requestMethod == "POST" and formRules == "on" then
+	local mac = luci.sys.exec(". /tmp/loader && _net ip2mac " .. remoteAddr)
+	if mac ~= "" then
+		local net = luci.sys.call(". /tmp/loader &&  _netfilter user_add " .. mac .. " " .. remoteAddr)
+		if net == 0 then
+			luci.http.redirect("http://www.weimarnetz.de/index.php?nodeip=" .. nodeIp .."&node=" .. nodeNumber .. "&gateway=" .. gateway[2] .."&gwnode=" .. gatewayNode)
+		else
+			startError = "addUserError"
+		end
+	else
+		startError = "macError"
+	end
+	
+end
+
+%>
+
+<%+header%>
+<div class="container">
+<div class="row">                                                                                                                                             
+<div class="span8">                                                                                                                                           
+<h1><%:Dein Internetzugang via Weimarnetz%></h1>
+<br/><%:Um den Internetzugang nutzen zu können musst Du unten auf den Knopf drücken.%><br/> <%:Dann hast Du auch Zugriff auf die Meldungen und Diskussionen.%>
+</div>
+<div class="span4">
+<img id="logo" src="/images/logo.gif" title="Firmenzeichen ('Internet')" alt="Firmenzeichen ('Internet')"></img>
+</div>
+</div>
+<% 
+if requestMethod == "POST" and formRules ~= "on" then %>
+	<div class='alert-message info'><br/><b>&nbsp;Bitte akzeptieren Sie die Nutzungsbedingungen!&nbsp;</b><br/><br/></div>
+<% 
+elseif formShowRules == "true" then 
+	luci.http.write(luci.sys.httpget(translate("http://localhost/images/weblogin_rules_de.txt")))
+ end 
+ 
+ if startError == "macError" then
+ 	luci.http.write("<div class='alert-message error'>" .. translate("Leere oder fehlerhafte Macadresse. Bist Du am richtigen Router?") .. "</div>")
+ elseif startError == "addUserError" then
+ 	luci.http.write("<div class='alert-message error'>" .. translate("Fehler bei der Nutzerfreischaltung. Bitte versuche es noch einmal!") .. "</div>")
+ end
+ %>
+<form method="post" action="<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG">
+<h2><%:Aktuelle Meldungen%></h2>
+<div class="row">                                                                                                                 
+<div class="span6" id="news">
+<ul><li><%:Meldungen werden geladen. Falls nicht, hast Du entweder Javascript im Browser deaktiviert oder Dir steht kein Internet zur Verfuegung.%>
+</li></ul>
+</div>
+</div>
+	<h2><%:Aktuelle Diskussionen %></h2>
+	<div class="row">
+	<div class="span6" id="discussions">
+
+<ul>
+<li><%:Diskussionen werden geladen. Falls nicht, hast Du entweder Javascript deaktiviert oder Dir steht kein Internet zur Verfuegung.%>
+</li></ul>
+ 
+
+	</div>
+	</div>
+
+<h2><%:Spendenaufruf%></h2>
+<div class="row">                                                                                                                 
+<div class="span6" id="funds">
+<ul><li><%:Informationen zu Spenden werden geladen. Falls nicht, hast Du entweder Javascript deaktiviert oder Dir steht kein Internet zur Verfuegung.%>
+</li></ul>
+</div>
+</div>
+
+<div class="row">
+<div class="span6">
+<input type="checkbox" id="accept_terms" tabindex="4" name="FORM_RULES"/><label for='accept_terms'>&nbsp;Ich akzeptiere die <a tabindex="5" href="<%=REQUEST_URI%>?REDIRECTED=1&amp;FORM_SHOW_RULES=true" title="ausf&uuml;hrliche Informationen zu den Vertragsbedingungen">Nutzungsbedingungen</a>.</label><br/>
+<button type="submit" class="btn info"><%:Internet starten%></button>
+<div id="enabled">
+</div>
+</div>
+</div>
+</form>
+</div>
+
+<script type="text/javascript">//<![CDATA[
+function removeLinks(text)
+{
+	text = text.replace(/(<a([^>]+)>)/gi, "");
+	return text.replace(/<\/a>/gi, "");
+}
+
+function removeSpan(text)
+{
+	text = text.replace(/(<span.*\/span>)/gi, "");
+	return text.replace(/<\/h.>/gi, "");
+}
+
+function removeHeadlines(text)
+{
+	text = text.replace(/(<h([^>]+)>)/gi, "");
+	return text.replace(/<\/h.>/gi, "");
+}
+function removeComments(text)
+{
+	return text.replace(/(<\!--([^>]+)-->)/gi, "");
+}
+function loadDiscussions()
+{
+	var xmlhttp;
+	var discussions;
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.open("GET","http://www.weimarnetz.de/latestnews.html",false);
+	xmlhttp.send();
+	discussions = removeLinks(xmlhttp.responseText);	
+	document.getElementById("discussions").innerHTML=discussions;
+}
+
+function loadNews(data)
+{
+	var news = data.parse.text['*'];
+	news = removeHeadlines(news);
+	news = removeSpan(news);
+	news = removeLinks(news);
+	news = removeComments(news);
+	//remove page specific part: aeltere Ankuendigungen
+	news = news.replace(/<ul.+<\/small>\n<\/li><\/ul>/gi, "");
+	document.getElementById("news").innerHTML=news;
+	console.log(news);
+}
+function loadFunds(data)
+{
+	var funds = data.parse.text['*'];
+	funds = removeHeadlines(funds);
+	funds = removeSpan(funds);
+	funds = removeLinks(funds);
+	funds = removeComments(funds);
+	document.getElementById("funds").innerHTML=funds;                                                                                                       
+	console.log(funds);
+}
+function loadLogo(data)
+{
+	var logo = data.query.pages;
+	var length = Object.keys(logo).length;
+	if (length = 1)
+	{
+		for(id in logo)
+		{
+			myLogo = logo[id]['imageinfo'][0]['url'];
+			console.log(myLogo);
+			document.getElementById("logo").src=myLogo;
+		}
+	}
+}
+console.log(document.URL);
+document.getElementById("enabled").innerHTML="<br/><br/>Schon freigeschaltet? <a href=\"" + document.URL + "\">Hier gehts zur Ursprungsseite</a>";
+loadDiscussions();
+//]]></script>
+<script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Startseite.Aktuelles&amp;prop=text&amp;callback=loadNews"></script>
+<script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Spendenaufruf&amp;prop=text&amp;callback=loadFunds"></script>
+<script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=query&amp;titles=Datei:Node<%=nodeNumber%>.jpg&amp;prop=imageinfo&amp;iiprop=url&amp;disablepp&amp;callback=loadLogo"></script>
+<%+footer%>

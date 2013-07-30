@@ -1,0 +1,45 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "Aktuelle Diskussionen"
+msgstr ""
+
+msgid "Aktuelle Meldungen"
+msgstr ""
+
+msgid "Dann hast Du auch Zugriff auf die Meldungen und Diskussionen."
+msgstr ""
+
+msgid "Dein Internetzugang via Weimarnetz"
+msgstr ""
+
+msgid ""
+"Diskussionen werden geladen. Falls nicht, hast Du entweder Javascript "
+"deaktiviert oder Dir steht kein Internet zur Verfuegung."
+msgstr ""
+
+msgid "Hello World"
+msgstr ""
+
+msgid ""
+"Informationen zu Spenden werden geladen. Falls nicht, hast Du entweder "
+"Javascript deaktiviert oder Dir steht kein Internet zur Verfuegung."
+msgstr ""
+
+msgid "Internet starten"
+msgstr ""
+
+msgid ""
+"Meldungen werden geladen. Falls nicht, hast Du entweder Javascript im "
+"Browser deaktiviert oder Dir steht kein Internet zur Verfuegung."
+msgstr ""
+
+msgid "Spendenaufruf"
+msgstr ""
+
+msgid ""
+"Um den Internetzugang nutzen zu können musst Du unten auf den Knopf drücken."
+msgstr ""
+
+msgid "http://localhost/images/weblogin_rules_de.txt"
+msgstr ""

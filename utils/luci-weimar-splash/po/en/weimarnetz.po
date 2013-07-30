@@ -1,0 +1,52 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "Aktuelle Diskussionen"
+msgstr "Current Discussions"
+
+msgid "Aktuelle Meldungen"
+msgstr "News"
+
+msgid "Dann hast Du auch Zugriff auf die Meldungen und Diskussionen."
+msgstr "Then you can also access news and discussions"
+
+msgid "Dein Internetzugang via Weimarnetz"
+msgstr "Your Internet access via Weimarnetz"
+
+msgid ""
+"Diskussionen werden geladen. Falls nicht, hast Du entweder Javascript "
+"deaktiviert oder Dir steht kein Internet zur Verfuegung."
+msgstr ""
+"Loading discussions. If they don't appear, you maybe"
+"disabled Javascript or there's no internet access"
+
+msgid "Hello World"
+msgstr ""
+
+msgid ""
+"Informationen zu Spenden werden geladen. Falls nicht, hast Du entweder "
+"Javascript deaktiviert oder Dir steht kein Internet zur Verfuegung."
+msgstr ""
+"Loading funds information. If they don't appear, you maybe"
+"disabled Javascript or there's no internet access"
+
+msgid "Internet starten"
+msgstr "Enable Internet"
+
+msgid ""
+"Meldungen werden geladen. Falls nicht, hast Du entweder Javascript im "
+"Browser deaktiviert oder Dir steht kein Internet zur Verfuegung."
+msgstr ""
+"Loading news. If they don't appear, you maybe"
+"disabled Javascript or there's no internet access"
+
+msgid "Spendenaufruf"
+msgstr "Call for funds"
+
+msgid ""
+"Um den Internetzugang nutzen zu können musst Du unten auf den Knopf drücken."
+msgstr ""
+"To get Internet access, please press the button at the end of the page"
+
+msgid "http://localhost/images/weblogin_rules_de.txt"
+msgstr "http://localhost/images/weblogin_rules_en.txt"
