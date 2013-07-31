@@ -11,7 +11,7 @@ define Package/luci-weimar-splash
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
-  TITLE:=WeimarnetzSplashPage
+  TITLE:=Weimarnetz Splashpage
 endef
 
 define Package/luci-weimar-splash/description
@@ -34,6 +34,9 @@ endef
 define Package/luci-weimar-splash/postinst
 #!/bin/sh
 [ -n "${IPKG_INSTROOT}" ] || {
+	uci set uhttpd.main.index_page="weimar-splash-index.html"
+	uci set uhttpd.main.error_page="/weimar-splash-index.html"
+	uci commit
 	rm -f /tmp/luci-indexcache
 	exit 0
 }
@@ -46,6 +49,7 @@ define Package/luci-weimar-splash/install
 	$(CP) $(PKG_BUILD_DIR)/luasrc/view/* $(1)/usr/lib/lua/luci/view
 	$(INSTALL_DIR) $(1)/www/luci-static/resources
 	$(CP) ./luci-static/resources/* $(1)/www/luci-static/resources
+	$(CP) ./root/* $(1)/www/
 endef
 
 $(eval $(call BuildPackage,luci-weimar-splash))
