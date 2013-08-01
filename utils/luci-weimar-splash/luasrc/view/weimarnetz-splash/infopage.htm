@@ -44,7 +44,7 @@ if requestMethod == "POST" and formRules ~= "on" then %>
 	<div class='alert-message info'><br/><b>&nbsp;Bitte akzeptieren Sie die Nutzungsbedingungen!&nbsp;</b><br/><br/></div>
 <% 
 elseif formShowRules == "true" then 
-	luci.http.write(luci.sys.httpget(translate("http://localhost/images/weblogin_rules_de.txt")))
+	luci.http.write(luci.sys.httpget(translate("luci-static/resources/weblogin_rules_de.txt")))
  end 
  
  if startError == "macError" then
