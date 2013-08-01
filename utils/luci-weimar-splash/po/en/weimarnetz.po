@@ -48,5 +48,5 @@ msgid ""
 msgstr ""
 "To get Internet access, please press the button at the end of the page"
 
-msgid "http://localhost/images/weblogin_rules_de.txt"
-msgstr "http://localhost/images/weblogin_rules_en.txt"
+msgid "/luci-static/resources/weblogin_rules_de.txt"
+msgstr "luci-static/resources/weblogin_rules_en.txt"
