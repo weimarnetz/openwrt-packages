@@ -41,5 +41,5 @@ msgid ""
 "Um den Internetzugang nutzen zu können musst Du unten auf den Knopf drücken."
 msgstr ""
 
-msgid "/luci-static/resources/weblogin_rules_de.txt"
+msgid "http://localhost/luci-static/resources/weblogin_rules_de.txt"
 msgstr ""

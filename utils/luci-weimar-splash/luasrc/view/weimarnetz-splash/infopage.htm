@@ -44,7 +44,7 @@ if requestMethod == "POST" and formRules ~= "on" then %>
 	<div class='alert-message info'><br/><b>&nbsp;Bitte akzeptieren Sie die Nutzungsbedingungen!&nbsp;</b><br/><br/></div>
 <% 
 elseif formShowRules == "true" then 
-	luci.http.write(luci.sys.httpget(translate("luci-static/resources/weblogin_rules_de.txt")))
+	luci.http.write(luci.sys.httpget(translate("http://localhost/luci-static/resources/weblogin_rules_de.txt")))
  end 
  
  if startError == "macError" then
@@ -169,7 +169,7 @@ function loadLogo(data)
 	}
 }
 console.log(document.URL);
-document.getElementById("enabled").innerHTML="<br/><br/>Schon freigeschaltet? <a href=\"" + document.URL + "\">Hier gehts zur Ursprungsseite</a>";
+document.getElementById("enabled").innerHTML="<br/><br/>Schon freigeschaltet? Hier gehts zur Ursprungsseite: <a href=\"" + document.URL + "\">" + document.URL + "</a>";
 loadDiscussions();
 //]]></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Startseite.Aktuelles&amp;prop=text&amp;callback=loadNews"></script>
