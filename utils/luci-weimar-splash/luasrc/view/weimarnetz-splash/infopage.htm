@@ -1,11 +1,20 @@
 <%
 local formRules = luci.http.formvalue("FORM_RULES")
 local formShowRules = luci.http.formvalue("FORM_SHOW_RULES")
+local formLang = luci.http.formvalue("FORM_LANG")
+if formLang ~= "" then
+	luci.i18n.setlanguage(formLang)
+end
 local requestMethod = luci.http.getenv("REQUEST_METHOD")
 local remoteAddr = luci.http.getenv("REMOTE_ADDR")
 local gwInfo = luci.util.split(luci.sys.exec("cat /tmp/GATEWAY_CHECK_RECENT"), ";")
-local gateway = luci.util.split(gwInfo[4], "=")
-local gatewayNode = luci.sys.exec(". /tmp/loader && _ipsystem ffweimar " .. gateway[2])
+if gwInfo ~= "" then
+	local gateway = luci.util.split(gwInfo[4], "=")
+	local gatewayNode = luci.sys.exec(". /tmp/loader && _ipsystem ffweimar " .. gateway[2])
+else
+	local gateway = ""
+	local gatewayNode = "" 
+end
 require("luci.model.uci")
 local uci = luci.model.uci.cursor_state()
 local nodeNumber = uci:get_first("system", "profile", "nodenumber")
@@ -33,10 +42,13 @@ end
 <div class="row">                                                                                                                                             
 <div class="span8">                                                                                                                                           
 <h1><%:Dein Internetzugang via Weimarnetz%></h1>
+<a href='<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG=de' title='diese Seite in deutsch anzeigen'><img src='/luci-static/images/flag_de.gif' border='0' alt='de' title='diese Seite in deutsch anzeigen'>&nbsp;deutsch</a>&nbsp;&nbsp;
+<a href='<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG=en' title='show this page in english'><img src='/luci-static/images/flag_en.gif' border='0' alt='en' title='show this page in english'>&nbsp;english</a>&nbsp;&nbsp;
+<a href='<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG=fr' title='afficher cette page en anglais'><img src='/luci-static/images/flag_fr.gif' border='0' alt='fr' title='afficher cette page en anglais'>&nbsp;fran&ccedil;ais</a>&nbsp;&nbsp;
 <br/><%:Um den Internetzugang nutzen zu können musst Du unten auf den Knopf drücken.%><br/> <%:Dann hast Du auch Zugriff auf die Meldungen und Diskussionen.%>
 </div>
 <div class="span4">
-<img id="logo" src="/images/logo.gif" title="Firmenzeichen ('Internet')" alt="Firmenzeichen ('Internet')"></img>
+<img id="logo" src="/images/logo.gif" title="Weimarnetz" alt="Weimarnetz"></img>
 </div>
 </div>
 <% 
@@ -83,7 +95,7 @@ elseif formShowRules == "true" then
 
 <div class="row">
 <div class="span6">
-<input type="checkbox" id="accept_terms" tabindex="4" name="FORM_RULES"/><label for='accept_terms'>&nbsp;Ich akzeptiere die <a tabindex="5" href="<%=REQUEST_URI%>?REDIRECTED=1&amp;FORM_SHOW_RULES=true" title="ausf&uuml;hrliche Informationen zu den Vertragsbedingungen">Nutzungsbedingungen</a>.</label><br/>
+<input type="checkbox" id="accept_terms" tabindex="4" name="FORM_RULES"/><label for='accept_terms'>&nbsp;<%:Ich akzeptiere die%> <a tabindex="5" href="<%=REQUEST_URI%>?REDIRECTED=1&amp;FORM_SHOW_RULES=true" title="<%:ausf&uuml;hrliche Informationen zu den Vertragsbedingungen%>"><%:Nutzungsbedingungen%></a>.</label><br/>
 <button type="submit" class="btn info"><%:Internet starten%></button>
 <div id="enabled">
 </div>
@@ -169,7 +181,7 @@ function loadLogo(data)
 	}
 }
 console.log(document.URL);
-document.getElementById("enabled").innerHTML="<br/><br/>Schon freigeschaltet? Hier gehts zur Ursprungsseite: <a href=\"" + document.URL + "\">" + document.URL + "</a>";
+document.getElementById("enabled").innerHTML="<br/><br/><%:Schon freigeschaltet? Hier gehts zur Ursprungsseite%>: <a href=\"" + document.URL + "\">" + document.URL + "</a>";
 loadDiscussions();
 //]]></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Startseite.Aktuelles&amp;prop=text&amp;callback=loadNews"></script>

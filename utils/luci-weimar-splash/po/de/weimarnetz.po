@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "Aktuelle Diskussionen"
 msgstr ""
@@ -18,7 +18,13 @@ msgid ""
 "deaktiviert oder Dir steht kein Internet zur Verfuegung."
 msgstr ""
 
+msgid "Fehler bei der Nutzerfreischaltung. Bitte versuche es noch einmal!"
+msgstr ""
+
 msgid "Hello World"
+msgstr ""
+
+msgid "Ich akzeptiere die"
 msgstr ""
 
 msgid ""
@@ -26,7 +32,13 @@ msgid ""
 "Javascript deaktiviert oder Dir steht kein Internet zur Verfuegung."
 msgstr ""
 
+msgid "Informationsseite"
+msgstr ""
+
 msgid "Internet starten"
+msgstr ""
+
+msgid "Leere oder fehlerhafte Macadresse. Bist Du am richtigen Router?"
 msgstr ""
 
 msgid ""
@@ -34,11 +46,20 @@ msgid ""
 "Browser deaktiviert oder Dir steht kein Internet zur Verfuegung."
 msgstr ""
 
+msgid "Nutzungsbedingungen"
+msgstr ""
+
+msgid "Schon freigeschaltet? Hier gehts zur Ursprungsseite"
+msgstr ""
+
 msgid "Spendenaufruf"
 msgstr ""
 
 msgid ""
 "Um den Internetzugang nutzen zu können musst Du unten auf den Knopf drücken."
+msgstr ""
+
+msgid "ausf&uuml;hrliche Informationen zu den Vertragsbedingungen"
 msgstr ""
 
 msgid "http://localhost/luci-static/resources/weblogin_rules_de.txt"

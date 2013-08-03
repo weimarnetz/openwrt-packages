@@ -1,5 +1,5 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "Aktuelle Diskussionen"
 msgstr "Current Discussions"
@@ -17,36 +17,59 @@ msgid ""
 "Diskussionen werden geladen. Falls nicht, hast Du entweder Javascript "
 "deaktiviert oder Dir steht kein Internet zur Verfuegung."
 msgstr ""
-"Loading discussions. If they don't appear, you maybe"
-"disabled Javascript or there's no internet access"
+"Loading discussions. If they don't appear, you maybedisabled Javascript or "
+"there's no internet access"
+
+msgid "Fehler bei der Nutzerfreischaltung. Bitte versuche es noch einmal!"
+msgstr "Error on activation. Please try again"
 
 msgid "Hello World"
 msgstr ""
+
+msgid "Ich akzeptiere die"
+msgstr "I accept the"
 
 msgid ""
 "Informationen zu Spenden werden geladen. Falls nicht, hast Du entweder "
 "Javascript deaktiviert oder Dir steht kein Internet zur Verfuegung."
 msgstr ""
-"Loading funds information. If they don't appear, you maybe"
-"disabled Javascript or there's no internet access"
+"Loading funds information. If they don't appear, you maybedisabled "
+"Javascript or there's no internet access"
+
+msgid "Informationsseite"
+msgstr "Info pages"
 
 msgid "Internet starten"
 msgstr "Enable Internet"
+
+msgid "Leere oder fehlerhafte Macadresse. Bist Du am richtigen Router?"
+msgstr "Empty or wrong mac address. Is this the router you want to be?"
 
 msgid ""
 "Meldungen werden geladen. Falls nicht, hast Du entweder Javascript im "
 "Browser deaktiviert oder Dir steht kein Internet zur Verfuegung."
 msgstr ""
-"Loading news. If they don't appear, you maybe"
-"disabled Javascript or there's no internet access"
+"Loading news. If they don't appear, you maybedisabled Javascript or there's "
+"no internet access"
+
+msgid "Nutzungsbedingungen"
+msgstr "terms of use"
+
+msgid "Schon freigeschaltet? Hier gehts zur Ursprungsseite"
+msgstr "Already activated? Here's the origin site"
 
 msgid "Spendenaufruf"
 msgstr "Call for funds"
 
 msgid ""
 "Um den Internetzugang nutzen zu können musst Du unten auf den Knopf drücken."
-msgstr ""
-"To get Internet access, please press the button at the end of the page"
+msgstr "To get Internet access, please press the button at the end of the page"
+
+msgid "ausf&uuml;hrliche Informationen zu den Vertragsbedingungen"
+msgstr "More information to the terms of use"
 
 msgid "http://localhost/luci-static/resources/weblogin_rules_de.txt"
 msgstr "http://localhost/luci-static/resources/weblogin_rules_en.txt"
+
+#~ msgid "http://localhost/images/weblogin_rules_de.txt"
+#~ msgstr "http://localhost/images/weblogin_rules_en.txt"
