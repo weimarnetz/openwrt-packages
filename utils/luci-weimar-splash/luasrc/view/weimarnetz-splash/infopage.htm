@@ -7,14 +7,17 @@ if formLang and formLang ~= "" then
 end
 local requestMethod = luci.http.getenv("REQUEST_METHOD")
 local remoteAddr = luci.http.getenv("REMOTE_ADDR")
+local gwInfo, gateway, gatewayNode
 local gwInfo = luci.sys.exec("cat /tmp/GATEWAY_CHECK_RECENT")
 if gwInfo and gwInfo ~= "" then
 	gwInfo = luci.util.split(gwInfo, ";")
-	local gateway = luci.util.split(gwInfo[4], "=")
-	local gatewayNode = luci.sys.exec(". /tmp/loader && _ipsystem ffweimar " .. gateway[2])
+	gateway = luci.util.split(gwInfo[4], "=")
+	gatewayNode = luci.sys.exec(". /tmp/loader && _ipsystem ffweimar " .. gateway[2])
 else
-	local gateway = ""
-	local gatewayNode = "" 
+	gateway = {}
+	gateway[1] = ""
+	gateway[2] = ""
+	gatewayNode = "" 
 end
 require("luci.model.uci")
 local uci = luci.model.uci.cursor_state()
