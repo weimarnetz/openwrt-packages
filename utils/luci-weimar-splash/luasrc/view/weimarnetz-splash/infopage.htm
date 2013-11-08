@@ -5,6 +5,7 @@ local formLang = luci.http.formvalue("FORM_LANG")
 if formLang and formLang ~= "" then
 	luci.i18n.setlanguage(formLang)
 end
+local origin = luci.http.formvalue("ORIGIN")
 local requestMethod = luci.http.getenv("REQUEST_METHOD")
 local remoteAddr = luci.http.getenv("REMOTE_ADDR")
 local gwInfo, gateway, gatewayNode
@@ -29,7 +30,7 @@ if requestMethod == "POST" and formRules == "on" then
 	if mac ~= "" then
 		local net = luci.sys.call(". /tmp/loader &&  _netfilter user_add " .. mac .. " " .. remoteAddr)
 		if net == 0 then
-			luci.http.redirect("http://www.weimarnetz.de/index.php?nodeip=" .. nodeIp .."&node=" .. nodeNumber .. "&gateway=" .. gateway[2] .."&gwnode=" .. gatewayNode)
+			luci.http.redirect("http://www.weimarnetz.de/index.php?origin=" .. origin .. "&nodeip=" .. nodeIp .."&node=" .. nodeNumber .. "&gateway=" .. gateway[2] .."&gwnode=" .. gatewayNode)
 		else
 			startError = "addUserError"
 		end
