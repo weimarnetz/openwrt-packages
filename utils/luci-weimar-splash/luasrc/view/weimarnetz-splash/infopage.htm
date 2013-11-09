@@ -70,7 +70,7 @@ elseif formShowRules == "true" then
  	luci.http.write("<div class='alert-message error'>" .. translate("Fehler bei der Nutzerfreischaltung. Bitte versuche es noch einmal!") .. "</div>")
  end
  %>
-<form method="post" action="<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG">
+<form name="login" method="post" action="<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG">
 <h2><%:Aktuelle Meldungen%></h2>
 <div class="row">                                                                                                                 
 <div class="span6" id="news">
