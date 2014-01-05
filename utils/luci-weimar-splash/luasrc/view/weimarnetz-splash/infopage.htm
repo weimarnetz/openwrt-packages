@@ -39,7 +39,7 @@ if requestMethod == "POST" and formRules == "on" then
 	end
 	
 end
-
+luci.http.status(307, "Weimarnetz Captive Portal")
 %>
 
 <%+header%>
@@ -100,16 +100,13 @@ elseif formShowRules == "true" then
 
 <div class="row">
 <div class="span6">
-<input type="hidden" name="ORIGIN" value=""/>
+<input type="hidden" name="ORIGIN" value="<%=origin%>"/>
 <input type="checkbox" id="accept_terms" tabindex="4" name="FORM_RULES"/><label for='accept_terms'>&nbsp;<%:Ich akzeptiere die%> <a tabindex="5" href="<%=REQUEST_URI%>?REDIRECTED=1&amp;FORM_SHOW_RULES=true" title="<%:ausf&uuml;hrliche Informationen zu den Vertragsbedingungen%>"><%:Nutzungsbedingungen%></a>.</label><br/>
 <button type="submit" class="btn info"><%:Internet starten%></button>
 <div id="enabled">
 </div>
 </div>
 </div>
-<script>
-        document.login.ORIGIN.value = encodeURIComponent(document.URL);
-</script>
 </form>
 </div>
 
@@ -190,9 +187,11 @@ function loadLogo(data)
 	}
 }
 console.log(document.URL);
-document.getElementById("enabled").innerHTML="<br/><br/><%:Schon freigeschaltet? Hier gehts zur Ursprungsseite%>: <a href=\"" + document.URL + "\">" + document.URL + "</a>";
 loadDiscussions();
 //]]></script>
+<script type="application/javascript">
+document.getElementById("enabled").innerHTML="<br/><br/><%:Schon freigeschaltet? Hier gehts zur Ursprungsseite%>: <a href=\"<%=luci.http.urldecode(origin)%>\"><%=luci.http.urldecode(origin)%></a>";
+</script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Startseite.Aktuelles&amp;prop=text&amp;callback=loadNews"></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Spendenaufruf&amp;prop=text&amp;callback=loadFunds"></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=query&amp;titles=Datei:Node<%=nodeNumber%>.jpg&amp;prop=imageinfo&amp;iiprop=url&amp;disablepp&amp;redirects&amp;callback=loadLogo"></script>
