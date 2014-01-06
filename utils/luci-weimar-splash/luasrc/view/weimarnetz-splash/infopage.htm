@@ -189,9 +189,11 @@ function loadLogo(data)
 console.log(document.URL);
 loadDiscussions();
 //]]></script>
+<% if origin and origin ~= "" then%>
 <script type="application/javascript">
 document.getElementById("enabled").innerHTML="<br/><br/><%:Schon freigeschaltet? Hier gehts zur Ursprungsseite%>: <a href=\"<%=luci.http.urldecode(origin)%>\"><%=luci.http.urldecode(origin)%></a>";
 </script>
+<% end %>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Startseite.Aktuelles&amp;prop=text&amp;callback=loadNews"></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Spendenaufruf&amp;prop=text&amp;callback=loadFunds"></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=query&amp;titles=Datei:Node<%=nodeNumber%>.jpg&amp;prop=imageinfo&amp;iiprop=url&amp;disablepp&amp;redirects&amp;callback=loadLogo"></script>

@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-weimar-splash
-PKG_RELEASE:=0.1.0
+PKG_RELEASE:=0.2.0
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -35,8 +35,8 @@ endef
 define Package/luci-weimar-splash/postinst
 #!/bin/sh
 [ -n "${IPKG_INSTROOT}" ] || {
-	uci set uhttpd.main.index_page="weimar-splash-index.html"
-	uci set uhttpd.main.error_page="/weimar-splash-index.html"
+	uci set uhttpd.main.index_page="weimar-splash-index.sh"
+	uci set uhttpd.main.error_page="/weimar-splash-index.sh"
 	uci commit
 	rm -f /tmp/luci-indexcache
 	exit 0
