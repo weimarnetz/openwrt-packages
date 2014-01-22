@@ -1,19 +1,38 @@
-!#/bin/sh
+#!/bin/sh
 
 . /tmp/loader
 
-if [ $SERVER_PORT -eq "443" ]; then
-	SCHEME="https://"
+if [ "$SERVER_PORT" = "443" ]; then
+        SCHEME="https://"
 else
-	SCHEME="http://"
+        SCHEME="http://"
 fi
 
-echo -en "Cache-Control: no-cache, max-age=0, no-store, must-revalidate\r\n"
-echo -en "Pragma: no-cache\r\n"
-echo -en "Expires: -1\r\n"
-echo -en "Status: 307 Temporary Redirect\r\n"
-echo -en "Location: http://$SERVER_ADDR/cgi-bin/luci/freifunk/captive?ORIGIN=$( _sanitizer urlvalue $SCHEME )$HTTP_HOST$( _sanitizer urlvalue $REQUEST_URI )\r\n"
-echo -en "\r\n"
+LOCATION="http://$SERVER_ADDR/cgi-bin/luci/freifunk/captive?ORIGIN=$( _sanitizer urlvalue $SCHEME )$HTTP_HOST$( _sanitizer urlvalue $REQUEST_URI )"
 
-cat weimar-splash-index.html
+
+echo -en "Content-type: text/html\n"
+
+cat <<EOF
+Status: 511 Network Authentication Required
+Connection: close
+Cache-Control: no-cache, max-age=0, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Type: text/html
+Location: $LOCATION
+<html>
+<head>
+<title>511 Network Authentication Required</title>
+<meta http-equiv="refresh" content="0; url=$LOCATION">
+<META HTTP-EQUIV="cache-control" CONTENT="no-cache">
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="expires" CONTENT="0">
+</head>
+<body style="background-color: black">
+<p>Bitte bestaetige die Nutzungsbedingungen vom <a style="color: white; text-decoration: none" href="$LOCATION">Weimarnetz</a> um die Verbindung zu nutzen.</p>
+<p>Please agree to the terms of <a style="color: white; text-decoration: none" href="$LOCATION">Weimarnetz</a> in order to gain network access.</p>
+</body>
+</html>
+EOF
 
