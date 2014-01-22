@@ -14,7 +14,7 @@ define Package/luci-theme-bootstrap3
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=4. Themes
-  TITLE:=Pberg Freifunk Theme
+  TITLE:=Bootstrap3 Freifunk Theme
   DEPENDS+=+luci-theme-base
 endef
 
