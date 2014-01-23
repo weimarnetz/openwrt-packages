@@ -2,14 +2,12 @@
 
 . /tmp/loader
 
-if [ "$SERVER_PORT" = "443" ]; then
-        SCHEME="https://"
+if [ "$SERVER_PORT" -eq "443" ]; then
+	SCHEME="https://"
 else
-        SCHEME="http://"
+	SCHEME="http://"
 fi
-
 LOCATION="http://$SERVER_ADDR/cgi-bin/luci/freifunk/captive?ORIGIN=$( _sanitizer urlvalue $SCHEME )$HTTP_HOST$( _sanitizer urlvalue $REQUEST_URI )"
-
 
 echo -en "Content-type: text/html\n"
 
@@ -21,6 +19,7 @@ Pragma: no-cache
 Expires: 0
 Content-Type: text/html
 Location: $LOCATION
+
 <html>
 <head>
 <title>511 Network Authentication Required</title>
@@ -30,9 +29,8 @@ Location: $LOCATION
 <META HTTP-EQUIV="expires" CONTENT="0">
 </head>
 <body style="background-color: black">
-<p>Bitte bestaetige die Nutzungsbedingungen vom <a style="color: white; text-decoration: none" href="$LOCATION">Weimarnetz</a> um die Verbindung zu nutzen.</p>
-<p>Please agree to the terms of <a style="color: white; text-decoration: none" href="$LOCATION">Weimarnetz</a> in order to gain network access.</p>
+<p style="color: white; text-decoration: none">Bitte bestaetige die Nutzungsbedingungen vom <a style="color: white; text-decoration: none" href="$LOCATION">Weimarnetz</a> um die Verbindung zu nutzen.</p
+<p style="color: white; text-decoration: none">Please agree to the terms of <a style="color: white; text-decoration: none" href="$LOCATION">Weimarnetz</a> in order to gain network access.</p>
 </body>
 </html>
 EOF
-
