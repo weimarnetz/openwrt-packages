@@ -19,7 +19,7 @@ define Package/luci-theme-bootstrap3
 endef
 
 define Package/luci-theme-bootstrap3/description
-   Freifunk Bootstrap3 Theme
+   Freifunk-Bootstrap3-Theme
 endef
 
 define Build/Prepare
@@ -38,7 +38,7 @@ define Package/luci-theme-bootstrap3/install
 	$(INSTALL_DIR) $(1)/www/luci-static
 	$(CP) ./htdocs//luci-static/* $(1)/luci-static
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(CP) ./root/uci-defaults/* $(1)/etc/uci-defaults
+	$(CP) ./root/etc/uci-defaults/* $(1)/etc/uci-defaults
 endef
 
 $(eval $(call BuildPackage,luci-theme-bootstrap3))
