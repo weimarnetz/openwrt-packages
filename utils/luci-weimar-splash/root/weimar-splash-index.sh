@@ -12,7 +12,7 @@ LOCATION="http://$SERVER_ADDR/cgi-bin/luci/freifunk/captive?ORIGIN=$( _sanitizer
 echo -en "Content-type: text/html\n"
 
 cat <<EOF
-Status: 511 Network Authentication Required
+Status: 307 Temporary Redirect
 Connection: close
 Cache-Control: no-cache, max-age=0, no-store, must-revalidate
 Pragma: no-cache
