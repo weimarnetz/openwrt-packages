@@ -268,6 +268,10 @@ function get()
 		root.longitude = tonumber(s.longitude) --owm
 		root.location = s.location
 	end)
+	
+	if not root.latitude or not root.longitude then
+		root.type='node_no_loc'
+	end
 
 	local devices = {}
 	cursor:foreach("wireless", "wifi-device",function(s)
