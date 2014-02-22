@@ -238,13 +238,15 @@ function get()
 	local s,a,r = sys.sysinfo() --owm
 	root.hardware = s --owm
 	
-
+	fff = nixio.fs.readfile('/etc/variables_fff\+')
+	
 	root.firmware = {
-	--	luciname=version.luciname,
-	--	luciversion=version.luciversion,
-	--	distname=version.distname,
-		name=version.distname, --owm
-	--	distversion=version.distversion,
+		luciname=version.luciname,
+		luciversion=version.luciversion,
+		distname=version.distname,
+		fffversion=string.match(fff, "FFF_PLUS_VERSION=(%d*).*" ),
+		name=string.match(fff, "FFF_VERSION=([0-9\.]*)%s*" ),
+		distversion=version.distversion,
 		revision=version.distversion --owm
 	}
 
@@ -264,6 +266,7 @@ function get()
 	cursor:foreach("system", "system", function(s) --owm
 		root.latitude = tonumber(s.latitude) --owm
 		root.longitude = tonumber(s.longitude) --owm
+		root.location = s.location
 	end)
 
 	local devices = {}
