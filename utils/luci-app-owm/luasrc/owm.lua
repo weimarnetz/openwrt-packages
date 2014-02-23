@@ -234,6 +234,15 @@ function get()
 		sysinfo = {sys.sysinfo()},
 	}
 	root.hostname = sys.hostname() --owm
+	local gw = sys.exec("cat /tmp/GATEWAY_CHECK_RECENT")
+	local gw = util.split(gw, ";")
+	root.weimarnetz = {
+		nodenumber = tonumber(uci:get_first("system", "profile", "nodenumber")),
+		gateway = util.split(gw[4], "=")[2],
+		gatewaycost = tonumber(util.split(gw[3], "=")[2]),
+		nexthop = util.split(gw[5], "=")[2]
+	}
+		
 
 
 	-- s system,a arch,r ram owm
