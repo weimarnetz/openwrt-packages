@@ -5,55 +5,28 @@ PKG_VERSION:=2014-06
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=git://github.com/kalua/kalua.git
+PKG_SOURCE_URL:=git://github.com/weimarnetz/weimarnetz.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=81e32cd5fa3dcda04b6fc319d32a55082b2f6b3c
+PKG_SOURCE_VERSION:=67fcee1ee93fbd104cfa5f8a87d0825dd734a058
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_BUILD_PARALLEL:=0
-CMAKE_INSTALL:=0
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
 
-define Package/kalua/default
+define Package/kalua
   SECTION:=utils
   CATEGORY:=Utilities
+  MAINTAINER:=Andreas Bräu <freifunk@andi95.de>
+  TITLE:=Kalua extensions
   URL:=http://kalua.org/trac/wiki
 endef
 
-define Package/kalua
-$(Package/kalua/default)
-  DEPENDS:=+olsr
-  TITLE:=kalua
-endef
 
 define Package/kalua/description
- Kalua extensions.
+ Kalua extensions used in weimarnetz.
 endef
 
-define Package/kalua/config
-	config PACKAGE_kalua-cyassl
-		depends on PACKAGE_kalua
-		bool "Build with CyaSSL"
-		default n
-	config PACKAGE_kalua-openssl
-		depends on PACKAGE_kalua
-		bool "Build with OpenSSL"
-		default n
+define Package/kalua/compile
 endef
-
-
-
-TARGET_CFLAGS += -I$(STAGING_DIR)/usr/include
-
-ifndef CONFIG_PACKAGE_kalua-openssl
-CMAKE_OPTIONS += \
-        -DWITH_SSL=OFF
-endif
-ifdef CONFIG_PACKAGE_kalua-cyassl
-CMAKE_OPTIONS += \
-        -DWITH_CYASSL=1
-endif
 
 define Package/kalua/install
 	$(INSTALL_DIR) $(1)/etc/kalua
