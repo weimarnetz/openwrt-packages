@@ -57,12 +57,14 @@ function network_remove_interface(iface)
 
 	-- Remove OLSR sections
 	cursor:delete_all("olsrd", "Interface", {Interface=iface})
+	cursor:delete_all("olsrd6", "Interface", {Interface=iface})
 
 	-- Remove Splash sections
 	cursor:delete_all("luci-splash", "iface", {network=iface})
 
 	cursor:save("network")
-	cursor:save("olsr")
+	cursor:save("olsrd")
+	cursor:save("olsrd6")
 	cursor:save("dhcp")
 	cursor:save("luci-splash")
 end
@@ -71,7 +73,7 @@ end
 function firewall_create_zone(zone, input, output, forward, masq)
 	local cursor = uci.cursor()
 	if not firewall_find_zone(zone) then
-		local stat = cursor:section("firewall", "zone", nil, {
+		local stat = cursor:section("firewall", "zone", "zone_"..zone, {
 			input = input,
 			output = output,
 			forward = forward,
