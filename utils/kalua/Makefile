@@ -7,7 +7,7 @@ PKG_RELEASE=$(PKG_SOURCE_VERSION)
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/weimarnetz/weimarnetz.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=67fcee1ee93fbd104cfa5f8a87d0825dd734a058
+PKG_SOURCE_VERSION:=4c17432b401ac333fa52784dee81c44f9099ff78
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 include $(INCLUDE_DIR)/package.mk
@@ -30,9 +30,9 @@ endef
 
 define Package/kalua/install
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/kalua_* $(1)/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/local* $(1)/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/variables* $(1)/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/kalua_* $(1)/etc/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/local* $(1)/etc/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/variables* $(1)/etc/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/init.d/* $(1)/etc/init.d/
 	$(INSTALL_DIR) $(1)/etc/dhcp-script.d
