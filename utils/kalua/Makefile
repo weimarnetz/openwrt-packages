@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kalua
-PKG_VERSION:=$(shell date +%s )
+PKG_VERSION:=$(date "+%s")
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
