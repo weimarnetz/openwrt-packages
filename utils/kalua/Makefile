@@ -5,7 +5,11 @@ PKG_VERSION:=2014-09
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=git://github.com/weimarnetz/weimarnetz.git
+ifdef REPOURL
+	PKG_SOURCE_URL:=$(REPOURL)
+else
+	PKG_SOURCE_URL=git://github.com/weimarnetz/weimarnetz.git
+endif
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=master
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
