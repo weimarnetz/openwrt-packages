@@ -39,6 +39,42 @@ if requestMethod == "POST" and formRules == "on" then
 	end
 	
 end
+
+local updateMode = uci:get_first("system", "fwupdate", "mode")
+local updateUrl = uci:get_first("system", "fwupdate", "url")
+local revisionsUrl
+local openWrtRev = luci.sys.exec("cat /etc/openwrt_release|grep DISTRIB_REVISION|cut -d= -f 2|sed -e 's/\"//g'")
+local kaluaRev = luci.sys.exec("cat /etc/variables_fff+|grep FFF_PLUS_VERSION|cut -d= -f 2|sed -e 's/\"//g'")
+local arch = luci.sys.exec("cat /etc/openwrt_release|grep DISTRIB_TARGET|cut -d= -f 2|sed -e 's/\"//g'|cut -d/ -f 1")
+arch = arch:gsub("%s+", "")
+
+
+if updateMode and updateUrl then
+	if updateMode == "stable" or updateMode == "0" then
+		revisionsUrl = updateUrl .. arch .. "/revisions.json"
+	elseif updateMode == "beta" then
+		revisionsUrl = updateUrl .. "beta/" .. arch .. "/revisions.json"
+	elseif updateMode == "testing" then
+		revisionsUrl = updateUrl .. "nightlies/" .. arch .. "/revisions.json"
+	end
+end
+
+local newOpenWrtRev
+local newKaluaRev
+local updateAvailable
+
+if revisionsUrl then
+	require("luci.json")
+	local revs = luci.json.decode(luci.sys.httpget(revisionsUrl))
+	if revs and revs.OPENWRT_REV and revs.KALUA_REV then
+		newOpenWrtRev = revs.OPENWRT_REV
+		newKaluaRev = revs.KALUA_REV
+		if newOpenWrtRev > openWrtRev or newKaluaRev > kaluaRev then
+			updateAvailable = 1
+		end
+	end
+end
+
 %>
 
 <%+header%>
@@ -70,6 +106,21 @@ elseif formShowRules == "true" then
  end
  %>
 <form name="login" method="post" action="<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG">
+<%
+if updateAvailable then
+%>
+<div class="alert-message warning">
+<p>Fuer diesen Router steht ein Update bereit.<br/><br/>
+Falls Du der Besitzer dieses Routers bist, fuehre es bitte durch. Informationen dazu findest Du <a href="http://wireless.subsignal.org/index.php?title=Update" target="_blank">im Wiki</a><br/>
+Bist Du nicht der Besitzer, weise ihn darauf hin, falls <a href="/cgi-bin/luci/freifunk/contact">Du ihn kennst</a>.<br/>
+</p>
+<p>
+Dein Router setzt OpenWRT in Version <strong><%=openWrtRev%></strong> und Kalua in Version <strong><%=kaluaRev%></strong> ein. Aktuell stehen die Versionen <strong><%=newOpenWrtRev%></strong> fuer OpenWrt und <strong><%=newKaluaRev%></strong> fuer Kalua bereit. Aenderungen kannst Du auf <a href="https://github.com/weimarnetz/weimarnetz" target="_blank">unserer Entwicklungsplattform auf GitHub</a> verfolgen.
+</p>
+</div>
+<%
+end
+%>
 <h2><%:Aktuelle Meldungen%></h2>
 <div class="row">                                                                                                                 
 <div class="span6" id="news">

@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-weimar-splash
-PKG_RELEASE:=0.2.5
+PKG_RELEASE:=0.2.6
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
