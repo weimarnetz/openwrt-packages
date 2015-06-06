@@ -105,7 +105,6 @@ elseif formShowRules == "true" then
  	luci.http.write("<div class='alert-message error'>" .. translate("Fehler bei der Nutzerfreischaltung. Bitte versuche es noch einmal!") .. "</div>")
  end
  %>
-<form name="login" method="post" action="<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG">
 <%
 if updateAvailable then
 %>
@@ -115,12 +114,13 @@ Falls Du der Besitzer dieses Routers bist, fuehre es bitte durch. Informationen 
 Bist Du nicht der Besitzer, weise ihn darauf hin, falls <a href="/cgi-bin/luci/freifunk/contact">Du ihn kennst</a>.<br/>
 </p>
 <p>
-Dein Router setzt OpenWRT in Version <strong><%=openWrtRev%></strong> und Kalua in Version <strong><%=kaluaRev%></strong> ein. Aktuell stehen die Versionen <strong><%=newOpenWrtRev%></strong> fuer OpenWrt und <strong><%=newKaluaRev%></strong> fuer Kalua bereit. Aenderungen kannst Du auf <a href="https://github.com/weimarnetz/weimarnetz" target="_blank">unserer Entwicklungsplattform auf GitHub</a> verfolgen.
+Dein Router setzt OpenWRT in Version <strong><%=openWrtRev%></strong> und Kalua in Version <strong><%=kaluaRev%></strong> ein und befindet sich im Updatemodus <strong><%=updateMode%></strong>. Aktuell stehen die Versionen <strong><%=newOpenWrtRev%></strong> fuer OpenWrt und <strong><%=newKaluaRev%></strong> fuer Kalua bereit. Aenderungen kannst Du auf <a href="https://github.com/weimarnetz/weimarnetz" target="_blank">unserer Entwicklungsplattform auf GitHub</a> verfolgen.
 </p>
 </div>
 <%
 end
 %>
+<form name="login" method="post" action="<%=REQUEST_URI%>/?REDIRECTED=1&amp;FORM_LANG">
 <h2><%:Aktuelle Meldungen%></h2>
 <div class="row">                                                                                                                 
 <div class="span6" id="news">
