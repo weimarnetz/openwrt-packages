@@ -227,11 +227,11 @@ function get()
 	end
 	root.type = 'node' --owm
 	root.updateInterval = 3600 --owm one hour
-
+	local info = nixio.sysinfo()
 	root.system = {
-		uptime = {sys.uptime()},
-		loadavg = {sys.loadavg()},
-		sysinfo = {sys.sysinfo()},
+		--uptime = {info.uptime()},
+		loadavg = info.loads,
+		sysinfo = {info},
 	}
 	root.hostname = sys.hostname() --owm
 	local gw = sys.exec("cat /tmp/GATEWAY_CHECK_RECENT")
@@ -246,7 +246,7 @@ function get()
 
 
 	-- s system,a arch,r ram owm
-	local s,a,r = sys.sysinfo() --owm
+	local s,a,r = info --owm
 	root.hardware = s --owm
 	
 	fff = nixio.fs.readfile('/etc/variables_fff\+')
@@ -332,6 +332,13 @@ function get()
 			}) do
 				interfaces[#interfaces][f] = iwinfo[f]
 			end
+			if iwinfo['encryption'] then
+				if iwinfo['encryption']['enabled'] then
+					-- fingers off encrypted wifi interfaces, they are likely private
+					table.remove(interfaces)
+					return
+				end
+			end
 		end
 		assoclist_if = {}
 		for _, v in ipairs(assoclist) do
@@ -361,6 +368,10 @@ function get()
 			return
 		end
 		local name = vif['.name']
+		if ('wan' == name) or ('wan6' == name) then
+			-- fingers off wan as this will be the private internet uplink
+			return
+		end
 		local net = netm:get_network(name)
 		local device = net and net:get_interface()
 		root.interfaces[#root.interfaces+1] =  vif
@@ -413,23 +424,23 @@ function get()
 		root.interfaces[#root.interfaces].wifi = wireless_add
 	end)
 
-	local dr4 = sys.net.defaultroute()
-	local dr6 = sys.net.defaultroute6()
-	
-	if dr6 then
+	local dr4 = ip.routes({ dest_exact="0.0.0.0/0" })
+	local dr6 = ip.routes({ dest_exact="::/0" })
+
+	if dr6[1] and dr6[1].gw then
 		def6 = { 
-		gateway = dr6.nexthop:string(),
-		dest = dr6.dest:string(),
-		dev = dr6.device,
-		metr = dr6.metric }
+		gateway = dr6[1].gw:string(),
+		dest = dr6[1].dest:string(),
+		dev = dr6[1].dev,
+		metr = dr6[1].metric }
 	end   
 
-	if dr4 then
+	if dr4[1] and dr4[1].gw then
 		def4 = { 
-		gateway = dr4.gateway:string(),
-		dest = dr4.dest:string(),
-		dev = dr4.device,
-		metr = dr4.metric }
+		gateway = dr4[1].gw:string(),
+		dest = dr4[1].dest:string(),
+		dev = dr4[1].dev,
+		metr = dr4[1].metric }
 	else
 		local dr = sys.exec("ip r s t olsr-default")
 		if dr then
