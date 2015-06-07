@@ -229,7 +229,7 @@ function get()
 	root.updateInterval = 3600 --owm one hour
 	local info = nixio.sysinfo()
 	root.system = {
-		--uptime = {info.uptime()},
+		uptime = {info.uptime},
 		loadavg = info.loads,
 		sysinfo = {info},
 	}
