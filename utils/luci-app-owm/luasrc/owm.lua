@@ -228,10 +228,14 @@ function get()
 	root.type = 'node' --owm
 	root.updateInterval = 3600 --owm one hour
 	local info = nixio.sysinfo()
+	local boardinfo = util.ubus("system", "board") or { }
 	root.system = {
 		uptime = {info.uptime},
 		loadavg = info.loads,
-		sysinfo = {info},
+		sysinfo = {
+			boardinfo.system or "?",
+			boardinfo.model or "?",
+			info},
 	}
 	root.hostname = sys.hostname() --owm
 	local gw = sys.exec("cat /tmp/GATEWAY_CHECK_RECENT")
@@ -247,7 +251,7 @@ function get()
 
 	-- s system,a arch,r ram owm
 	local s,a,r = info --owm
-	root.hardware = s --owm
+	root.hardware = boardinfo.system or "?"
 	
 	fff = nixio.fs.readfile('/etc/variables_fff\+')
 	
