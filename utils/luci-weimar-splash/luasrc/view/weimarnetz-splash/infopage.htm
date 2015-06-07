@@ -43,9 +43,9 @@ end
 local updateMode = uci:get_first("system", "fwupdate", "mode")
 local updateUrl = uci:get_first("system", "fwupdate", "url")
 local revisionsUrl
-local openWrtRev = luci.sys.exec("cat /etc/openwrt_release|grep DISTRIB_REVISION|cut -d= -f 2|sed -e 's/\"//g'")
-local kaluaRev = luci.sys.exec("cat /etc/variables_fff+|grep FFF_PLUS_VERSION|cut -d= -f 2|sed -e 's/\"//g'")
-local arch = luci.sys.exec("cat /etc/openwrt_release|grep DISTRIB_TARGET|cut -d= -f 2|sed -e 's/\"//g'|cut -d/ -f 1")
+local openWrtRev = luci.sys.exec("cat /etc/openwrt_version")
+local kaluaRev = luci.sys.exec("cat /etc/variables_fff+|grep FFF_PLUS_VERSION|cut -d= -f 2"):gsub("\'", ""):gsub("\"", "")
+local arch = luci.sys.exec("cat /etc/openwrt_release|grep DISTRIB_TARGET|cut -d= -f 2|cut -d/ -f 1"):gsub("\'", ""):gsub("\"", "")
 arch = arch:gsub("%s+", "")
 
 
