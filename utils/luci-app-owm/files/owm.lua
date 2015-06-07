@@ -3,7 +3,7 @@
 require("luci.util")
 require("luci.model.uci")
 require("luci.sys")
-require("luci.fs")
+require("nixio.fs")
 require("luci.httpclient")
 
 -- Init state session
@@ -37,8 +37,9 @@ end
 
 
 function lock()
-	if luci.fs.isfile(lockfile) then
-		local timediff = os.time() - luci.fs.mtime(lockfile)
+	myLock = nixio.fs.stat(lockfile)
+	if myLock then
+		local timediff = os.time() - myLock.mtime
 		if timediff < 3600 then
 			print(lockfile.." exists, time since lock: "..timediff)
 			os.exit()
