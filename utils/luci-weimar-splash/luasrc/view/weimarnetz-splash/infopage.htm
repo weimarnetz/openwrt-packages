@@ -63,9 +63,17 @@ local newOpenWrtRev
 local newKaluaRev
 local updateAvailable
 
-if revisionsUrl then
+require("nixio.fs")
+local revsFile = nixio.fs.readfile("/tmp/revisions.json")
+
+if not revsFile then
+  luci.sys.exec(". /tmp/loader && _wget do " .. revisionsUrl .. " 10 /tmp/revisions.json")
+  revsFile = nixio.fs.readfile("/tmp/revisions.json")
+end
+
+if revsFile then
 	require("luci.json")
-	local revs = luci.json.decode(luci.sys.httpget(revisionsUrl))
+	local revs = luci.json.decode(revsFile)
 	if revs and revs.OPENWRT_REV and revs.KALUA_REV then
 		newOpenWrtRev = revs.OPENWRT_REV
 		newKaluaRev = revs.KALUA_REV
