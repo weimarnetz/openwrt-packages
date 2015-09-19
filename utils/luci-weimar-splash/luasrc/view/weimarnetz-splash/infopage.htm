@@ -43,7 +43,7 @@ end
 local updateMode = uci:get_first("system", "fwupdate", "mode")
 local updateUrl = uci:get_first("system", "fwupdate", "url")
 local revisionsUrl
-local openWrtRev = luci.sys.exec("cat /etc/openwrt_version")
+local openWrtRev = luci.sys.exec("cat /etc/openwrt_release|grep DISTRIB_REVISION|cut -d= -f 2"):gsub("\'", ""):gsub("\"", "")
 local kaluaRev = luci.sys.exec("cat /etc/variables_fff+|grep FFF_PLUS_VERSION|cut -d= -f 2"):gsub("\'", ""):gsub("\"", "")
 local arch = luci.sys.exec("cat /etc/openwrt_release|grep DISTRIB_TARGET|cut -d= -f 2|cut -d/ -f 1"):gsub("\'", ""):gsub("\"", "")
 arch = arch:gsub("%s+", "")
@@ -51,11 +51,11 @@ arch = arch:gsub("%s+", "")
 
 if updateMode and updateUrl then
 	if updateMode == "stable" or updateMode == "0" then
-		revisionsUrl = updateUrl .. arch .. "/revisions.json"
+		revisionsUrl = updateUrl .. "/" .. arch .. "/images/stable/revisions.json"
 	elseif updateMode == "beta" then
-		revisionsUrl = updateUrl .. "beta/" .. arch .. "/revisions.json"
+		revisionsUrl = updateUrl .. "/" .. arch .. "/images/beta/revisions.json"
 	elseif updateMode == "testing" then
-		revisionsUrl = updateUrl .. "nightlies/" .. arch .. "/revisions.json"
+		revisionsUrl = updateUrl .. "/" .. arch .. "/images/testing/revisions.json"
 	end
 end
 
@@ -67,7 +67,7 @@ require("nixio.fs")
 local revsFile = nixio.fs.readfile("/tmp/revisions.json")
 
 if not revsFile then
-  luci.sys.exec(". /tmp/loader && _wget do " .. revisionsUrl .. " 10 /tmp/revisions.json")
+  luci.sys.exec(". /tmp/loader && _wget do " .. revisionsUrl .. " 10 > /tmp/revisions.json")
   revsFile = nixio.fs.readfile("/tmp/revisions.json")
 end
 
