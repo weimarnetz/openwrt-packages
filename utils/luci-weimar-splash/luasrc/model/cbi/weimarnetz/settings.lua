@@ -20,6 +20,10 @@ s.anonymous=true
 splash = w:option(Flag, "enabled", translate("Informationsseite"), translate("Soll WLAN-Nutzern eine Informationsseite angezeigt werden?"))
 splash.rmempty=false
 
+publishEmail = w:option(Flag, "email2owm", translate("Email veröffentlichen"), translate("Soll deine Emailadresse auf unserem <a href=\"http://weimarnetz.de/monitoring\" target=\"_blank\">Monitoring</a> erscheinen? Die Adresse ist dort öffentlich einsehbar. Bei Problemen kann man dich kontaktieren. Sonst ist die Adresse nur auf deinem Router sichtbar."))
+publishEmail.rmempty=false
+publishEmail.default='0'
+
 profile = p:option(Value, "nodenumber", translate("Knotennummer"), translate("Mit der Knotennummer werden zahlreiche Netzwerkeinstellungen vorgenommen. Sie ist pro Router eindeutig und liegt zwischen 2 und 980. Im  <a href=\"http://reg.weimarnetz.de\" target=\"blank\">Registrator</a> sind alle bereits vergebenen Nummer aufgelistet. Sei vorsichtig an dieser Stelle!"))
 function profile:validate(value)
 	if value:match("^[0-9]*$") and value:len()<4 then
