@@ -18,7 +18,7 @@ s:depends("mode", "ap")
 s.anonymous=true
 
 splash = w:option(Flag, "enabled", translate("Informationsseite"), translate("Soll WLAN-Nutzern eine Informationsseite angezeigt werden?"))
-splash.mempty=false
+splash.rmempty=false
 
 profile = p:option(Value, "nodenumber", translate("Knotennummer"), translate("Mit der Knotennummer werden zahlreiche Netzwerkeinstellungen vorgenommen. Sie ist pro Router eindeutig und liegt zwischen 2 und 980. Im  <a href=\"http://reg.weimarnetz.de\" target=\"blank\">Registrator</a> sind alle bereits vergebenen Nummer aufgelistet. Sei vorsichtig an dieser Stelle!"))
 function profile:validate(value)
@@ -48,7 +48,8 @@ vpnMode:value("0", translate("VPN deaktivieren"))
 vpnMode:value("1", translate("VPN aktivieren und Internetverkehr darüber leiten"))
 vpnMode:value("2", translate("VPN aktivieren, nur zur Verbindung mit der Wokle"))
 vpnNoInternet = v:option(Flag, "disableinternet", translate("Kein Internet bei VPN-Ausfall"), translate("Soll der Internetzugang für WLAN-Nutzer gesperrt werden, wenn VPN ausfällt?"))
-vpnNoInternet.mempty=false
+vpnNoInternet.rmempty=false
+vpnNoInternet.default='0'
 vpnNoInternet:depends("enable", "1")
 btn = v:option(Button, "_btn", translate("VPN-Änderungen anwenden"))
 function btn.write()
