@@ -21,5 +21,10 @@ function index()
    page.target   = template("weimarnetz-splash/infopage")
    page.setuser  = false
    page.setgroup = false
+
+   page        = node("admin", "freifunk", "weimarnetz")
+   page.target = cbi("weimarnetz/settings")
+   page.title  = _("Weimarnetz")
+   page.order  = 60
 end
 
