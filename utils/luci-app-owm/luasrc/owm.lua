@@ -265,6 +265,10 @@ function get()
 		revision=version.distversion --owm
 	}
 
+  local email2owm = uci:get_first("system", "weblogin", "email2owm")
+  if not email2owm then
+    email2owm = '0'
+  end
 	root.freifunk = {}
 	uci:foreach("freifunk", "public", function(s)
 		local pname = s[".name"]
@@ -272,8 +276,10 @@ function get()
 		s['.anonymous'] = nil
 		s['.type'] = nil
 		s['.index'] = nil
-		if s['mail'] then
+		if s['mail'] and email2owm == '1' then
 			s['mail'] = string.gsub(s['mail'], "@", "./-\\.T.")
+    else
+      s['mail'] = "Email hidden"
 		end
 		root.freifunk[pname] = s
 	end)
