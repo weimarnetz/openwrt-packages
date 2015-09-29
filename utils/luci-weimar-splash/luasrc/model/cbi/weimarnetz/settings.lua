@@ -48,9 +48,9 @@ fwUrl:depends("mode", "beta")
 fwUrl:depends("mode", "testing")
 
 vpnMode = v:option(ListValue, "enable", translate("VPN-Modus"), translate("Wie soll VPN genutzt werden?"))
-vpnMode:value("0", translate("VPN deaktivieren"))
-vpnMode:value("1", translate("VPN aktivieren und Internetverkehr darüber leiten"))
-vpnMode:value("2", translate("VPN aktivieren, nur zur Verbindung mit der Wokle"))
+vpnMode:value("off", translate("VPN deaktivieren"))
+vpnMode:value("on", translate("VPN aktivieren und Internetverkehr darüber leiten"))
+vpnMode:value("innercity", translate("VPN aktivieren, nur zur Verbindung mit der Wokle"))
 vpnNoInternet = v:option(Flag, "disableinternet", translate("Kein Internet bei VPN-Ausfall"), translate("Soll der Internetzugang für WLAN-Nutzer gesperrt werden, wenn VPN ausfällt?"))
 vpnNoInternet.rmempty=false
 vpnNoInternet.default='0'
