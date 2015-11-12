@@ -67,7 +67,7 @@ require("nixio.fs")
 local revsFile = nixio.fs.readfile("/tmp/revisions.json")
 
 if not revsFile then
-  luci.sys.exec(". /tmp/loader && _wget do " .. revisionsUrl .. " 10 > /tmp/revisions.json")
+  luci.sys.exec(". /tmp/loader && _curl it " .. revisionsUrl .. " 10 > /tmp/revisions.json")
   revsFile = nixio.fs.readfile("/tmp/revisions.json")
 end
 
