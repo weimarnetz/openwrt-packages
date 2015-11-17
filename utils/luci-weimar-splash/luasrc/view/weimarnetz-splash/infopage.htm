@@ -13,11 +13,11 @@ local gwInfo = luci.sys.exec("cat /tmp/GATEWAY_CHECK_RECENT")
 if gwInfo and gwInfo ~= "" then
 	gwInfo = luci.util.split(gwInfo, ";")
 	gateway = luci.util.split(gwInfo[4], "=")
-  if gateway[2] and gateway[2] ~="" then
-    gatewayNode = luci.sys.exec(". /tmp/loader && _ipsystem ffweimar " .. gateway[2])
-  else
-    gatewayNode = ""
-  end
+	if gateway[2] and gateway[2] ~="" then
+		gatewayNode = luci.sys.exec(". /tmp/loader && _ipsystem ffweimar " .. gateway[2])
+	else
+		gatewayNode = ""
+	end
 else
 	gateway = {}
 	gateway[1] = ""
