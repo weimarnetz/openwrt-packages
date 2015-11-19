@@ -11,7 +11,7 @@ else
 	PKG_SOURCE_URL=git://github.com/weimarnetz/weimarnetz.git
 endif
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=master
+PKG_SOURCE_VERSION:=GebrannteMandeln
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 include $(INCLUDE_DIR)/package.mk
