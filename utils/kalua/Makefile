@@ -13,6 +13,10 @@ endif
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=GebrannteMandeln
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+$(shell git clone ${PKG_SOURCE_URL} -b ${PKG_SOURCE_VERSION} ${TMP_DIR}/getgitver --no-checkout )
+LC:=$(shell git --git-dir $(TMP_DIR)/getgitver/.git log -1 --pretty=format:%ct )
+LCH:=$(shell echo $$((${LC}/3600)) )
+$(shell rm -rf $(TMP_DIR)/getgitver)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -53,6 +57,8 @@ define Package/kalua/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/*.* $(1)/www/
 	$(INSTALL_DIR) $(1)/www/images
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/images/* $(1)/www/images/
+	@echo 'FFF_PLUS_VERSION=$(LCH)' > $(PKG_INSTALL_DIR)/etc/variables_fff+
+	@echo 'FFF_VERSION=$(PKG_SOURCE_VERSION)' >> $(PKG_INSTALL_DIR)/etc/variables_fff+
 endef
 
 $(eval $(call BuildPackage,kalua))
