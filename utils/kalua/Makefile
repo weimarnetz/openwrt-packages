@@ -38,7 +38,7 @@ define Package/kalua/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/local* $(1)/etc/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/variables* $(1)/etc/
 	$(INSTALL_DIR) $(1)/etc/profile.d
-	$(INSTALL_DIR) $(PKG_INSTALL_DIR)/etc/profile.d/* $(1)/etc/profile.d/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/profile.d/* $(1)/etc/profile.d/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/init.d/* $(1)/etc/init.d/
 	$(INSTALL_DIR) $(1)/etc/dhcp-script.d
