@@ -57,8 +57,8 @@ define Package/kalua/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/*.* $(1)/www/
 	$(INSTALL_DIR) $(1)/www/images
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/images/* $(1)/www/images/
-	@echo 'FFF_PLUS_VERSION=$(LCH)' > $(PKG_INSTALL_DIR)/etc/variables_fff+
-	@echo 'FFF_VERSION=$(PKG_SOURCE_VERSION)' >> $(PKG_INSTALL_DIR)/etc/variables_fff+
+	@echo 'FFF_PLUS_VERSION=$(LCH)' > $(1)/etc/variables_fff+
+	@echo 'FFF_VERSION=$(PKG_SOURCE_VERSION)' >> $(1)/etc/variables_fff+
 endef
 
 $(eval $(call BuildPackage,kalua))
