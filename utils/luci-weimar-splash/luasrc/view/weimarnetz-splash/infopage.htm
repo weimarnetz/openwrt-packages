@@ -137,7 +137,7 @@ end
 <h2><%:Aktuelle Meldungen%></h2>
 <div class="row">                                                                                                                 
 <div class="span6" id="news">
-<ul><li><%:Meldungen werden geladen. Falls nicht, hast Du entweder Javascript im Browser deaktiviert oder Dir steht kein Internet zur Verfuegung.%>
+<ul id="newslist"><li><%:Meldungen werden geladen. Falls nicht, hast Du entweder Javascript im Browser deaktiviert oder Dir steht kein Internet zur Verfuegung.%>
 </li></ul>
 </div>
 </div>
@@ -145,7 +145,7 @@ end
 	<div class="row">
 	<div class="span6" id="discussions">
 
-<ul>
+<ul id="mailinglist">
 <li><%:Diskussionen werden geladen. Falls nicht, hast Du entweder Javascript deaktiviert oder Dir steht kein Internet zur Verfuegung.%>
 </li></ul>
  
@@ -195,35 +195,38 @@ function removeComments(text)
 {
 	return text.replace(/(<\!--([^>]+)-->)/gi, "");
 }
-function loadDiscussions()
+
+function loadMlNews(data)
 {
-	var xmlhttp;
-	var discussions;
-	if (window.XMLHttpRequest)
-	{// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp=new XMLHttpRequest();
-	}
-	else
-	{// code for IE6, IE5
-		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.open("GET","http://www.weimarnetz.de/latestnews.html",false);
-	xmlhttp.send();
-	discussions = removeLinks(xmlhttp.responseText);	
-	document.getElementById("discussions").innerHTML=discussions;
+	loadNews(data, "mailinglist");
 }
 
-function loadNews(data)
+function loadFbNews(data)
 {
-	var news = data.parse.text['*'];
-	news = removeHeadlines(news);
-	news = removeSpan(news);
-	news = removeLinks(news);
-	news = removeComments(news);
-	//remove page specific part: aeltere Ankuendigungen
-	news = news.replace(/<ul.+<\/small>\n<\/li><\/ul>/gi, "");
-	document.getElementById("news").innerHTML=news;
-	console.log(news);
+	loadNews(data, "newslist");
+}
+
+function loadNews(data, element)
+{
+	var ul = document.getElementById(element);
+	while (ul.hasChildNodes()) {
+		ul.removeChild(ul.lastChild);
+	}
+	var nl = data.channel.item
+	for(var item in nl) {
+		var entry = nl[item];
+		var a = document.createElement("a");
+		a.appendChild(document.createTextNode(entry.title));
+		a.title = entry.title;
+		a.href = entry.link;
+		a.target = "_blank";
+		var li = document.createElement("li");
+		var pubDate = new Date(entry.pubDate);
+		li.appendChild(document.createTextNode(pubDate.toLocaleDateString() + " - "));
+		li.appendChild(a);
+		ul.appendChild(li);
+	}
+	console.log(ul);
 }
 function loadFunds(data)
 {
@@ -250,14 +253,14 @@ function loadLogo(data)
 	}
 }
 console.log(document.URL);
-loadDiscussions();
 //]]></script>
 <% if origin and origin ~= "" then%>
 <script type="application/javascript">
 document.getElementById("enabled").innerHTML="<br/><br/><%:Schon freigeschaltet? Hier gehts zur Ursprungsseite%>: <a href=\"<%=luci.http.urldecode(origin)%>\"><%=luci.http.urldecode(origin)%></a>";
 </script>
 <% end %>
-<script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Startseite.Aktuelles&amp;prop=text&amp;callback=loadNews"></script>
+<script type="application/javascript" src="http://weimarnetz.de/inc/feed/feed.php?items=6&source=fbweimarnetz&format=json&callback=loadFbNews"></script>
+<script type="application/javascript" src="http://weimarnetz.de/inc/feed/feed.php?items=6&source=mlweimarnetz&format=json&callback=loadMlNews"></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=parse&amp;page=Vorlage:Spendenaufruf&amp;prop=text&amp;callback=loadFunds"></script>
 <script type="application/javascript" src="http://wireless.subsignal.org/api.php?format=json&amp;action=query&amp;titles=Datei:Node<%=nodeNumber%>.jpg&amp;prop=imageinfo&amp;iiprop=url&amp;disablepp&amp;redirects&amp;callback=loadLogo"></script>
 <%+footer%>
