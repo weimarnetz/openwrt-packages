@@ -9,7 +9,7 @@ local profiles = "/etc/config/profile_*"
 m = Map("system", translate("Einstellungen fürs Weimarnetz"))
 n = Map("wireless", translate("WLAN-Einstellungen"))
 o = Map("meshwizard", translate("Knoteneinstellungen"))
-w = m:section(NamedSection, "weblogin", "weblogin", nil, translate("Splashpage"))
+w = m:section(NamedSection, "weblogin", "weblogin", nil, translate("Privatsphäre"))
 f = m:section(NamedSection, "fwupdate", "fwupdate", nil, translate("Firmware"))
 p = o:section(NamedSection, "community", "public", nil, translate("Knoten"))
 v = m:section(NamedSection, "vpn", "vpn", nil, translate("VPN"))
@@ -23,6 +23,9 @@ splash.rmempty=false
 publishEmail = w:option(Flag, "email2owm", translate("Email veröffentlichen"), translate("Soll deine Emailadresse auf unserem <a href=\"http://weimarnetz.de/monitoring\" target=\"_blank\">Monitoring</a> erscheinen? Die Adresse ist dort öffentlich einsehbar. Bei Problemen kann man dich kontaktieren. Sonst ist die Adresse nur auf deinem Router sichtbar."))
 publishEmail.rmempty=false
 publishEmail.default='0'
+
+restrict = w:option(Flag, "restrict_local", translate("LAN-Zugriff unterbinden"), translate("Soll Zugriff auf das eigene lokale Netzwerk blockiert werden?"))
+restrict.rmempty=false 
 
 profile = p:option(Value, "nodenumber", translate("Knotennummer"), translate("Mit der Knotennummer werden zahlreiche Netzwerkeinstellungen vorgenommen. Sie ist pro Router eindeutig und liegt zwischen 2 und 980. Im  <a href=\"http://reg.weimarnetz.de\" target=\"blank\">Registrator</a> sind alle bereits vergebenen Nummer aufgelistet. Sei vorsichtig an dieser Stelle!"))
 function profile:validate(value)
