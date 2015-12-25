@@ -1,8 +1,6 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kalua
-PKG_VERSION:=$(shell date +%s )
-PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
 ifdef REPOURL
@@ -10,13 +8,15 @@ ifdef REPOURL
 else
 	PKG_SOURCE_URL=git://github.com/weimarnetz/weimarnetz.git
 endif
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=GebrannteMandeln
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 $(shell git clone ${PKG_SOURCE_URL} -b ${PKG_SOURCE_VERSION} ${TMP_DIR}/getgitver --no-checkout )
 LC:=$(shell git --git-dir $(TMP_DIR)/getgitver/.git log -1 --pretty=format:%ct )
 LCH:=$(shell echo $$((${LC}/3600)) )
 $(shell rm -rf $(TMP_DIR)/getgitver)
+PKG_VERSION:=$(LCH)
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
