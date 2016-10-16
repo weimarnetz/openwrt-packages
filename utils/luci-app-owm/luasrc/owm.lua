@@ -218,11 +218,12 @@ function get()
 --	end
 	for _, dev in ipairs(devices) do
 		for _, net in ipairs(dev:get_wifinets()) do
+			local radio = net:get_device()
 			assoclist[#assoclist+1] = {} 
-			assoclist[#assoclist]['ifname'] = net.iwdata.ifname
-			assoclist[#assoclist]['network'] = net.iwdata.network
-			assoclist[#assoclist]['device'] = net.iwdata.device
-			assoclist[#assoclist]['list'] = net.iwinfo.assoclist
+			assoclist[#assoclist]['ifname'] = net:ifname()
+			assoclist[#assoclist]['network'] = net:network()
+			assoclist[#assoclist]['device'] = radio and radio:name() or nil 
+			assoclist[#assoclist]['list'] = net:assoclist()
 		end
 	end
 	root.type = 'node' --owm
