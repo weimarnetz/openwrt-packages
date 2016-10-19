@@ -3,17 +3,9 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=kalua
 
 PKG_SOURCE_PROTO:=git
-ifdef REPOURL
-	PKG_SOURCE_URL:=$(REPOURL)
-else
-	PKG_SOURCE_URL=git://github.com/weimarnetz/weimarnetz.git
-endif
+PKG_SOURCE_URL=git://github.com/weimarnetz/weimarnetz.git
 PKG_SOURCE_VERSION:=GebrannteMandeln
-$(shell git clone ${PKG_SOURCE_URL} -b ${PKG_SOURCE_VERSION} ${TMP_DIR}/getgitver --no-checkout )
-LC:=$(shell git --git-dir $(TMP_DIR)/getgitver/.git log -1 --pretty=format:%ct )
-LCH:=$(shell echo $$((${LC}/3600)) )
-$(shell rm -rf $(TMP_DIR)/getgitver)
-PKG_VERSION:=$(LCH)
+PKG_VERSION:=0.1
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
@@ -57,8 +49,6 @@ define Package/kalua/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/*.* $(1)/www/
 	$(INSTALL_DIR) $(1)/www/images
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/images/* $(1)/www/images/
-	@echo 'FFF_PLUS_VERSION=$(LCH)' > $(1)/etc/variables_fff+
-	@echo 'FFF_VERSION=$(PKG_SOURCE_VERSION)' >> $(1)/etc/variables_fff+
 endef
 
 $(eval $(call BuildPackage,kalua))
