@@ -25,10 +25,9 @@ define Package/kalua-trunk/description
  Kalua extensions used in weimarnetz.
 endef
 
-Build/Compile/Default
-
+define Build/Compile
+ 
 endef
-Build/Compile = $(Build/Compile/Default)
 
 define Package/kalua-trunk/install
 	$(CP) ./files/* $(1)/
