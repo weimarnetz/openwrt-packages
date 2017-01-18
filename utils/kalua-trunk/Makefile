@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kalua-trunk
-PKG_VERSION:=2017-01
+PKG_VERSION:=$(shell cd $(PKG_SOURCE_SUBDIR) && git describe --always)
 PKG_RELEASE:=2
 
 
