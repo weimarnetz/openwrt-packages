@@ -17,9 +17,8 @@ include $(INCLUDE_DIR)/package.mk
 define Package/kalua-trunk
   SECTION:=utils
   CATEGORY:=Utilities
-  MAINTAINER:=Andreas Bräu <freifunk@andi95.de>
   TITLE:=Kalua extensions
-  URL:=http://kalua.org/trac/wiki
+  URL:=https://github.com/weimarnetz/weimarnetz
 endef
 
 
