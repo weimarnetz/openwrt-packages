@@ -27,13 +27,26 @@ define Package/kalua-trunk/description
  Kalua extensions used in weimarnetz.
 endef
 
-define Build/Compile
- 
-endef
-
 define Package/kalua-trunk/install
-	$(INSTALL_DIR) $(1)/
-	$(CP) -R $(PKG_INSTALL_DIR)/files/* $(1)/
+	$(INSTALL_DIR) $(1)/etc
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/kalua_* $(1)/etc/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/variables* $(1)/etc/
+	$(INSTALL_DIR) $(1)/etc/profile.d
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/profile.d/* $(1)/etc/profile.d/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/init.d/* $(1)/etc/init.d/
+	$(INSTALL_DIR) $(1)/etc/dhcp-script.d
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/dhcp-script.d/* $(1)/etc/dhcp-script.d/
+	$(INSTALL_DIR) $(1)/etc/kalua
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/etc/kalua/* $(1)/etc/kalua/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/* $(1)/usr/sbin/
+	$(INSTALL_DIR) $(1)/www
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/*.* $(1)/www/
+	$(INSTALL_DIR) $(1)/www/images
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/www/images/* $(1)/www/images/
 endef
 
 $(eval $(call BuildPackage,kalua-trunk))
