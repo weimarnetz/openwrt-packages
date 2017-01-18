@@ -10,6 +10,8 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
+PKG_INSTALL:=1
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/kalua-trunk
@@ -31,7 +33,7 @@ endef
 
 define Package/kalua-trunk/install
 	$(INSTALL_DIR) $(1)/
-	$(CP) -R ./files/* $(1)/
+	$(CP) -R $(PKG_INSTALL_DIR)/files/* $(1)/
 endef
 
 $(eval $(call BuildPackage,kalua-trunk))
