@@ -1,13 +1,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kalua-trunk
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL=https://github.com/weimarnetz/weimarnetz.git
-PKG_SOURCE_VERSION:=master
 PKG_VERSION:=2017-01
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_RELEASE=$(PKG_SOURCE_VERSION)
+PKG_RELEASE:=2
+
+
+PKG_SOURCE_URL=https://github.com/weimarnetz/weimarnetz.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=master
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.xz
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_SOURCE_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -19,7 +22,9 @@ define Package/kalua-trunk
   URL:=http://kalua.org/trac/wiki
 endef
 
-define Build/Prepare
+
+define Package/kalua-trunk/description
+	Kalua extensions used in weimarnetz.
 endef
 
 define Build/Configure
@@ -28,13 +33,8 @@ endef
 define Build/Compile
 endef
 
-define Package/kalua-trunk/description
-	Kalua extensions used in weimarnetz.
-endef
-
 define Package/kalua-trunk/install
-	$(INSTALL_DIR) $(1)/
-	$(CP) -R ./files $(1)/
+	$(CP) -R $(PKG_BUILD_DIR)/files/* $(1)/
 endef
 
 $(eval $(call BuildPackage,kalua-trunk))
