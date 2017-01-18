@@ -30,6 +30,7 @@ define Build/Compile
 endef
 
 define Package/kalua-trunk/install
+	$(INSTALL_DIR) $(1)/
 	$(CP) -R ./files/* $(1)/
 endef
 
