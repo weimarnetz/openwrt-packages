@@ -21,10 +21,11 @@ endef
 
 
 define Package/kalua-trunk/description
- Kalua extensions used in weimarnetz.
+	Kalua extensions used in weimarnetz.
 endef
 
 define Package/kalua-trunk/install
+	$(INSTALL_DIR) $(1)/
 	$(CP) -R ./files $(1)/
 endef
 
