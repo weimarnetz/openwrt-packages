@@ -19,6 +19,14 @@ define Package/kalua-trunk
   URL:=http://kalua.org/trac/wiki
 endef
 
+define Build/Prepare
+endef
+
+define Build/Configure
+endef
+
+define Build/Compile
+endef
 
 define Package/kalua-trunk/description
 	Kalua extensions used in weimarnetz.
