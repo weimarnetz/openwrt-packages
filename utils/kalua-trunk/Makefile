@@ -30,7 +30,7 @@ define Build/Compile
 endef
 
 define Package/kalua-trunk/install
-	$(CP) ./files/* $(1)/
+	$(CP) -R ./files/* $(1)/
 endef
 
 $(eval $(call BuildPackage,kalua-trunk))
