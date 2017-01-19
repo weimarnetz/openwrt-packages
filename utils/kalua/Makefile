@@ -4,9 +4,8 @@ PKG_NAME:=kalua
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=git://github.com/weimarnetz/weimarnetz.git
-PKG_SOURCE_VERSION:=GebrannteMandeln
-PKG_VERSION:=$(shell git describe --always)
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) GebrannteMandeln|cut -f1)
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
