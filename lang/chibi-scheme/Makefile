@@ -23,19 +23,19 @@ define Package/chibi-scheme
   MAINTAINER:=Martin Tippmann <mt@i3o.de>
 endef
 
-define Package/patch/description
+define Package/chibi-scheme/description
 	Minimal Scheme Implementation for use as an Extension Language
 endef
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		all install
+		PREFIX=/usr DESTDIR="$(PKG_INSTALL_DIR)" \
+		all install 
 endef
 
-define Package/patch/install
+define Package/chibi-scheme/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(CP) $(PKG_INSTALL_DIR)/usr/bin/patch $(1)/usr/bin/
+	$(CP) $(PKG_INSTALL_DIR)/usr/bin/ $(1)/usr/bin/
 endef
 
-$(eval $(call BuildPackage,patch))
+$(eval $(call BuildPackage,chibi-scheme))
