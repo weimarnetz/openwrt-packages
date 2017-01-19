@@ -33,7 +33,7 @@ endef
 
 define Package/kalua-bittorf/install
 	$(CP) -R $(PKG_BUILD_DIR)/openwrt-addons/* $(1)/
-        $(CP) $(PKG_BUILD_DIR)/openwrt-build/apply_profile* $(1)/etc/init.d/
+	$(CP) $(PKG_BUILD_DIR)/openwrt-build/apply_profile* $(1)/etc/init.d/
 endef
 
 $(eval $(call BuildPackage,kalua-bittorf))
