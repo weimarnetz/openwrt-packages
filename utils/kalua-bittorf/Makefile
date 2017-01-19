@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kalua-bittorf
-PKG_VERSION:=trunk
+PKG_VERSION:=$(PKG_SOURCE_VERSION)
 PKG_RELEASE:=2
 
 

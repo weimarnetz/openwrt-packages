@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kalua-trunk
-PKG_VERSION:=2017-01
+PKG_VERSION:=$(PKG_SOURCE_VERSION)
 PKG_RELEASE:=2
 
 
