@@ -29,7 +29,7 @@ endef
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
-		PREFIX=/usr DESTDIR="$(PKG_INSTALL_DIR)" \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
 		all install 
 endef
 
