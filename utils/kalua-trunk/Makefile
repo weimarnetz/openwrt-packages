@@ -1,8 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kalua-trunk
-PKG_VERSION:=$(PKG_SOURCE_VERSION)
-PKG_RELEASE:=2
+PKG_RELEASE:=1
 
 
 PKG_SOURCE_URL=https://github.com/weimarnetz/weimarnetz.git
@@ -11,6 +10,7 @@ PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) HEAD|cut -f1 | cut -
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.xz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_SOURCE_VERSION)
+PKG_VERSION:=$(PKG_SOURCE_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
