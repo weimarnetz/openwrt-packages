@@ -25,7 +25,7 @@ endef
 
 define Package/luci-app-owm
   $(call Package/luci-app-owm/default)
-  DEPENDS:=+luci-lib-json +olsrd-mod-jsoninfo +luci-lib-luaneightbl
+  DEPENDS:=+luci-base +luci-lib-json +olsrd-mod-jsoninfo +luci-lib-luaneightbl
   TITLE:=Luci JSON Export for Open Wireless Map
 endef
 
@@ -35,18 +35,18 @@ endef
 
 define Package/luci-app-owm-cmd
   $(call Package/luci-app-owm/default)
-  DEPENDS:=luci-app-owm +luci-lib-httpclient
+  DEPENDS:=+luci-app-owm +luci-lib-httpclient
   TITLE:=luci-app-owm-cmd - Commandline update tool
 endef
 
 define Package/luci-app-owm-gui
   $(call Package/luci-app-owm/default)
-  DEPENDS:=luci-app-owm
+  DEPENDS:=+luci-app-owm
   TITLE:=luci-app-owm-gui - GUI Open Wireless Map
 endef
 define Package/luci-app-owm-ant
   $(call Package/luci-app-owm/default)
-  DEPENDS:=luci-app-owm
+  DEPENDS:=+luci-app-owm
   TITLE:=luci-app-owm-ant - GUI Antenna settings
 endef
 
