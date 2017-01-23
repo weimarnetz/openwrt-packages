@@ -35,6 +35,7 @@ endef
 define Package/kalua-trunk/install
 	$(CP) -R $(PKG_BUILD_DIR)/files/* $(1)/
 	@echo 'FFF_VERSION=$(PKG_SOURCE_VERSION)' >> $(1)/etc/variables_fff+
+	@echo 'FFF_SOURCE_URL=$(PKG_SOURCE_URL)'  >> $(1)/etc/variables_fff+
 endef
 
 $(eval $(call BuildPackage,kalua-trunk))
