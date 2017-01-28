@@ -177,7 +177,7 @@ MAKE_FLAGS+= \
 	DESTDIR="$(PKG_INSTALL_DIR)" \
 	STRIP="true" \
 	INSTALL_LIB="true" \
-	SUBDIRS="arproaming arprefresh bmf dot_draw dyn_gw dyn_gw_plain httpinfo jsoninfo netjson mdns nameservice p2pd pgraph pud quagga secure sgwdynspeed txtinfo watchdog"
+	SUBDIRS="arproaming arprefresh bmf dot_draw dyn_gw dyn_gw_plain httpinfo jsoninfo nameservice txtinfo watchdog"
 
 define Build/Compile
 	$(call Build/Compile/Default,all)
