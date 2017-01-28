@@ -12,9 +12,9 @@ PKG_VERSION:=0.9.6
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/OLSR/olsrd.git
+PKG_SOURCE_URL:=https://gitlab.bau-ha.us/weimarnetz/olsrd-arproaming
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=v0.9.5
+PKG_SOURCE_VERSION:=master
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MIRROR_MD5SUM:=
 
@@ -49,6 +49,12 @@ define Package/olsrd-mod-arprefresh
   $(call Package/olsrd/template)
   DEPENDS:=olsrd
   TITLE:=Kernel ARP cache refresh plugin
+endef
+
+define Package/olsrd-arproaming
+  $(call Package/olsrd/template)
+  DEPENDS:=olsrd
+  TITLE:=ARP roaming plugin
 endef
 
 define Package/olsrd-mod-dot-draw
@@ -171,7 +177,7 @@ MAKE_FLAGS+= \
 	DESTDIR="$(PKG_INSTALL_DIR)" \
 	STRIP="true" \
 	INSTALL_LIB="true" \
-	SUBDIRS="arprefresh bmf dot_draw dyn_gw dyn_gw_plain httpinfo jsoninfo netjson mdns nameservice p2pd pgraph pud quagga secure sgwdynspeed txtinfo watchdog"
+	SUBDIRS="arproaming arprefresh bmf dot_draw dyn_gw dyn_gw_plain httpinfo jsoninfo netjson mdns nameservice p2pd pgraph pud quagga secure sgwdynspeed txtinfo watchdog"
 
 define Build/Compile
 	$(call Build/Compile/Default,all)
@@ -191,6 +197,11 @@ define Package/olsrd/install
 	$(INSTALL_BIN) ./files/olsrd6.init $(1)/etc/init.d/olsrd6
 	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
 	$(INSTALL_BIN) ./files/olsrd.hotplug.sh $(1)/etc/hotplug.d/iface/50-olsrd
+endef
+
+define Package/olsrd-mod-arproaming/install
+        $(INSTALL_DIR) $(1)/usr/lib
+        $(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/arproaming/olsrd_arproaming.so.* $(1)/usr/lib/
 endef
 
 define Package/olsrd-mod-arprefresh/install
