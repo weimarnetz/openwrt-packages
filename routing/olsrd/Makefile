@@ -51,7 +51,7 @@ define Package/olsrd-mod-arprefresh
   TITLE:=Kernel ARP cache refresh plugin
 endef
 
-define Package/olsrd-arproaming
+define Package/olsrd-mod-arproaming
   $(call Package/olsrd/template)
   DEPENDS:=olsrd
   TITLE:=ARP roaming plugin
@@ -303,6 +303,7 @@ define Package/olsrd-mod-watchdog/install
 endef
 
 $(eval $(call BuildPackage,olsrd))
+$(eval $(call BuildPackage,olsrd-mod-arproaming))
 $(eval $(call BuildPackage,olsrd-mod-arprefresh))
 $(eval $(call BuildPackage,olsrd-mod-dot-draw))
 $(eval $(call BuildPackage,olsrd-mod-bmf))
