@@ -14,7 +14,7 @@ PKG_RELEASE=$(PKG_SOURCE_VERSION)
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://gitlab.bau-ha.us/weimarnetz/olsrd-arproaming
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=master
+PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) HEAD|cut -f1 | cut -c1-7)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MIRROR_MD5SUM:=
 
@@ -23,7 +23,7 @@ PKG_LICENSE:=BSD-3-Clause
 
 include $(INCLUDE_DIR)/package.mk
 
-TARGET_CFLAGS += $(FPIC)
+TARGET_CFLAGS += $(FPIC) -O0 -g3 
 
 define Package/olsrd/template
   SECTION:=net
