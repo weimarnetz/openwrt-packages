@@ -200,8 +200,8 @@ define Package/olsrd/install
 endef
 
 define Package/olsrd-mod-arproaming/install
-        $(INSTALL_DIR) $(1)/usr/lib
-        $(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/arproaming/olsrd_arproaming.so.* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/arproaming/olsrd_arproaming.so.* $(1)/usr/lib/
 endef
 
 define Package/olsrd-mod-arprefresh/install
