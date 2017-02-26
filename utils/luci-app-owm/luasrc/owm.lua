@@ -25,7 +25,7 @@ local json = require "luci.json"
 local netm = require "luci.model.network"
 local table = require "table"
 local nixio = require "nixio"
---local neightbl = require "neightbl"
+local neightbl = require "neightbl"
 local ip = require "luci.ip"
 
 
@@ -239,13 +239,8 @@ function get()
 			info},
 	}
 	root.hostname = sys.hostname() --owm
-	local gw = sys.exec("cat /tmp/GATEWAY_CHECK_RECENT")
-	local gw = util.split(gw, ";")
 	root.weimarnetz = {
-		nodenumber = tonumber(uci:get_first("system", "profile", "nodenumber")),
-		gateway = util.split(gw[4], "=")[2],
-		gatewaycost = tonumber(util.split(gw[3], "=")[2]),
-		nexthop = util.split(gw[5], "=")[2]
+		nodenumber = tonumber(uci:get_first("meshnode", "settings", "nodenumber")),
 	}
 		
 
@@ -260,7 +255,6 @@ function get()
 		luciname=version.luciname,
 		luciversion=version.luciversion,
 		distname=version.distname,
-		fffversion=string.match(fff, "FFF_PLUS_VERSION=(%d*).*" ),
 		name=string.match(fff, "FFF_VERSION=([0-9\.]*)%s*" ),
 		distversion=version.distversion,
 		revision=version.distversion --owm
