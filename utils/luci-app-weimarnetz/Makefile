@@ -1,20 +1,20 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-weimar-splash
-PKG_RELEASE:=0.4.5
+PKG_NAME:=luci-app-weimarnetz
+PKG_RELEASE:=0.6.0
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/luci-weimar-splash
+define Package/luci-app-weimarnetz
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
   TITLE:=Weimarnetz Splashpage
 endef
 
-define Package/luci-weimar-splash/description
+define Package/luci-app-weimarnetz/description
   provide a weimar/kalua specific page
   that allows to load current information
 endef
@@ -32,18 +32,7 @@ define Build/Compile
 	./build/i18n-po2lua.pl ./po i18n
 endef
 
-define Package/luci-weimar-splash/postinst
-#!/bin/sh
-[ -n "${IPKG_INSTROOT}" ] || {
-	uci set uhttpd.main.index_page="weimar-splash-index.sh"
-	uci set uhttpd.main.error_page="/weimar-splash-index.sh"
-	uci commit
-	rm -f /tmp/luci-indexcache
-	exit 0
-}
-endef
-
-define Package/luci-weimar-splash/install
+define Package/luci-app-weimarnetz/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model
@@ -59,4 +48,4 @@ define Package/luci-weimar-splash/install
 	$(CP) ./root/* $(1)/www/
 endef
 
-$(eval $(call BuildPackage,luci-weimar-splash))
+$(eval $(call BuildPackage,luci-app-weimarnetz))
