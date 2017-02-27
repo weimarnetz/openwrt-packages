@@ -41,7 +41,6 @@ define Package/luci-app-weimarnetz/install
 	$(CP) $(PKG_BUILD_DIR)/luasrc/view/* $(1)/usr/lib/lua/luci/view
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
 	$(CP) ./i18n/* $(1)/usr/lib/lua/luci/i18n
-	$(CP) ./root/* $(1)/www/
 endef
 
 $(eval $(call BuildPackage,luci-app-weimarnetz))
