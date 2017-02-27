@@ -15,7 +15,7 @@ $Id$
 module("luci.controller.weimarnetz.app", package.seeall)
 
 function index()
-   page = node("freifunk", "captive")
+   page = node("freifunk", "info")
    page.title    = luci.i18n.translate("Informationsseite")
    page.order    = 1
    page.target   = template("weimarnetz/infopage")
