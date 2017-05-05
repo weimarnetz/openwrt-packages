@@ -12,19 +12,19 @@ You may obtain a copy of the License at
 $Id$
 ]]--
 
-module("luci.controller.weimarnetz.splash", package.seeall)
+module("luci.controller.weimarnetz.app", package.seeall)
 
 function index()
-   page = node("freifunk", "captive")
+   page = node("freifunk", "info")
    page.title    = luci.i18n.translate("Informationsseite")
    page.order    = 1
-   page.target   = template("weimarnetz-splash/infopage")
+   page.target   = template("weimarnetz/infopage")
    page.setuser  = false
    page.setgroup = false
 
    page        = node("admin", "freifunk", "weimarnetz")
    page.target = cbi("weimarnetz/settings")
-   page.title  = _("Weimarnetz")
+   page.title  = _("Weimarnetz Settings")
    page.order  = 60
 end
 
