@@ -6,11 +6,11 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_URL=https://github.com/weimarnetz/weimarnetz.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_NAME)-$(shell git ls-remote $(PKG_SOURCE_URL) HEAD|cut -f1 | cut -c1-7)
+PKG_SOURCE_VERSION:=$(shell git ls-remote $(PKG_SOURCE_URL) NextRelease|cut -f1 | cut -c1-7)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.xz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_SOURCE_VERSION)
-PKG_VERSION:=$(PKG_SOURCE_VERSION)
+PKG_VERSION:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
